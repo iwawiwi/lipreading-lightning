@@ -1,8 +1,9 @@
 from typing import Optional
 
-from components.lrw_dataset import LRWDataset
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader, Dataset
+
+from src.datamodules.components.lrw_dataset import LRWDataset
 
 
 class LRWDataModule(LightningDataModule):
@@ -42,7 +43,7 @@ class LRWDataModule(LightningDataModule):
 
     @property
     def num_classes(self) -> int:
-        return 10
+        return 500
 
     def prepare_data(self):
         """Download data if needed.
