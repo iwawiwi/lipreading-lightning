@@ -1,13 +1,12 @@
-from typing import Optional, Tuple
+from typing import Optional
 
-import torch
 from components.lrw_dataset import LRWDataset
 from pytorch_lightning import LightningDataModule
-from torch.utils.data import ConcatDataset, DataLoader, Dataset, random_split
+from torch.utils.data import DataLoader, Dataset
 
 
-class MNISTDataModule(LightningDataModule):
-    """Example of LightningDataModule for MNIST dataset.
+class LRWDataModule(LightningDataModule):
+    """Example of LightningDataModule for LRW dataset.
 
     A DataModule implements 5 key methods:
         - prepare_data (things to do on 1 GPU/TPU, not on every GPU/TPU in distributed mode)
