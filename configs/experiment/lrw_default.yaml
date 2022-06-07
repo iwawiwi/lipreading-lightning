@@ -7,7 +7,7 @@ defaults:
   - override /datamodule: lrw.yaml
   - override /model: lrw.yaml
   - override /callbacks: default.yaml
-  - override /logger: null
+  - override /logger: wandb.yaml
   - override /trainer: lrw.yaml
 
 # all parameters below will be merged with parameters from default configurations set above
@@ -18,16 +18,21 @@ name: "lrw_net"
 
 seed: 606
 
+callbacks:
+  model_checkpoint:
+    save_top_k: 3
+
 datamodule:
-  _target_: src.datamodules.lrw_datamodule.LRWDataModule
+  pin_memory: True
+
+model:
+  scheduler_max_epochs: 20
 
 trainer:
-  min_epochs: 2
-  max_epochs: 5
-  precision: 16
-  limit_train_batches: 0.01
-  limit_val_batches: 0.01
+  min_epochs: 10
+  max_epochs: 20
 
 logger:
   wandb:
+    log_model: True
     tags: ["lrw", "${name}"]
