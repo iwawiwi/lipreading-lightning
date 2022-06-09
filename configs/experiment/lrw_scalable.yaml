@@ -1,0 +1,37 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /datamodule: lrw.yaml
+  - override /model: lrwscalable.yaml
+  - override /callbacks: overfit_batch.yaml
+  - override /logger: null
+  - override /trainer: overfit_batch.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+# name of the run determines folder name in logs
+name: "lrw_net"
+
+seed: 609
+
+datamodule:
+  pin_memory: True
+
+model:
+  scheduler_max_epochs: 20
+  net:
+    se: True
+    outplane_3d: 32
+
+trainer:
+  min_epochs: 2
+  max_epochs: 10
+
+logger:
+  wandb:
+    log_model: True
+    tags: ["lrw", "${name}"]

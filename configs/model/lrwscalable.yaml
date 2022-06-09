@@ -1,0 +1,14 @@
+_target_: src.models.lrw_module.LRWLitModule
+lr: 0.0003
+weight_decay: 0.0001
+scheduler_max_epochs: 30
+
+net:
+  _target_: src.models.components.lrw_net.ScalableLRWNet
+  border: False
+  n_classes: 500
+  se: False
+  outplane_3d: 32
+  recurrent_hidden_size: 256
+  recurrent_biderctional: True
+  dropout: 0.5
