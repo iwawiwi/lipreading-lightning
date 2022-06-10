@@ -1,8 +1,14 @@
+# append working directory to PATH system
+import sys
+
 import torch
 import torchvision.transforms as transforms
 from imgcaption_loader import get_loader
-from imgcaption_model import CNNtoRNN
 from PIL import Image
+
+sys.path.append("/home/iwawiwi/research/22/lipreading-lightning")
+
+from src.models.imgcaption_module import Flickr8KLitModule
 
 
 def print_examples(model, device, dataset):
@@ -43,31 +49,17 @@ def print_examples(model, device, dataset):
     model.train()
 
 
-def load_checkpoint(checkpoint):
-    print("=> Loading checkpoint")
-    model.load_state_dict(checkpoint["state_dict"])
-    return model
-
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 DATA_DIR = "/home/iwawiwi/research/22/lipreading-lightning/data/flickr8k"
-BEST_MODEL = "model.pth"
-
-embed_size = 256
-hidden_size = 256
-vocab_size = 2994
-num_layers = 1
-lrate = 0.001
-num_epochs = 5
+BEST_MODEL = "/home/iwawiwi/research/22/lipreading-lightning/src/vendor/model.pth"
 
 loader, dataset = get_loader(
     root_folder=DATA_DIR + "/Images", annotation_file=DATA_DIR + "/captions.txt", transform=None
 )
 
-model = CNNtoRNN(embed_size, hidden_size, vocab_size, num_layers)
-checkpoint = torch.load(BEST_MODEL)
-print(checkpoint)
-# model.load_state_dict(torch.load(BEST_MODEL)["state_dict"])
+trained_model = Flickr8KLitModule.load_from_checkpoint(checkpoint_path=BEST_MODEL)
+# print loaded model hparams
+print(trained_model.hparams)
 
 # print_examples(model, device, dataset)
