@@ -146,3 +146,8 @@ logs/
 wandb/
 .env
 .autoenv
+notebooks/*.mp4
+src/vendor/*.pth
+src/vendor/example/*.png
+src/vendor/example/*.jpg
+notebooks/*.json
