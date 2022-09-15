@@ -16,11 +16,14 @@ defaults:
 # name of the run determines folder name in logs
 name: "lrw_net_e20"
 
-seed: 905
+seed: 914
 
 callbacks:
   model_checkpoint:
     save_top_k: 3
+  lr_monitor:
+    _target_: pytorch_lightning.callbacks.LearningRateMonitor
+    logging_interval: "epoch"
 
 datamodule:
   pin_memory: True
@@ -29,8 +32,10 @@ model:
   scheduler_max_epochs: 20
   net:
     se: True
-    outplane_3d: 16
-    stack_recurrent: 2
+    outplane_3d: 32
+    stack_recurrent: 3
+    recurrent_hidden_size: 384
+    recurrent_biderctional: True
     dropout: 0.2
 
 trainer:

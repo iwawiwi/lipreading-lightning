@@ -5,9 +5,6 @@ from pytorch_lightning import LightningModule
 from torchmetrics import MaxMetric
 from torchmetrics.classification.accuracy import Accuracy
 
-# model implementation from https://github.com/VIPL-Audio-Visual-Speech-Understanding/learn-an-effective-lip-reading-model-without-pains/
-from src.models.components.lrw_video_model import VideoModel
-
 
 class LRWLitModule(LightningModule):
     """Example of LightningModule for LRW classification.
@@ -34,7 +31,7 @@ class LRWLitModule(LightningModule):
 
         # this line allows to access init params with 'self.hparams' attribute
         # it also ensures init params will be stored in ckpt
-        self.save_hyperparameters(logger=False, ignore=["net"])  # ignore saving networks
+        self.save_hyperparameters(logger=False)  # NOTE: can't ignore saving networks otherwise it will fail to load!
 
         self.net = net
 
@@ -288,5 +285,11 @@ class LRWKDLitModule(LightningModule):
             )
 
         state_dict = torch.load(model_path)["video_model"]  # return state dictionary
-        model = VideoModel(args=model_hparams)
+        try:
+            # model implementation from https://github.com/VIPL-Audio-Visual-Speech-Understanding/learn-an-effective-lip-reading-model-without-pains/
+            from src.models.components.lrw_video_model import VideoModel
+            model = VideoModel(args=model_hparams)
+        except:
+            raise Exception("Model not found")
+
         return model  # return model

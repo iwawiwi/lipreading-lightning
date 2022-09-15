@@ -247,6 +247,7 @@ class ScalableLRWNet(nn.Module):
         outplane_3d: int = 64,
         recurrent_hidden_size: int = 1024,
         recurrent_biderctional: bool = True,
+        stack_recurrent: int = 3,
         dropout: float = 0.5,
     ):
         super().__init__()
@@ -262,7 +263,7 @@ class ScalableLRWNet(nn.Module):
             self.gru = nn.GRU(
                 in_dim,
                 recurrent_hidden_size,
-                num_layers=3,
+                num_layers=stack_recurrent,
                 batch_first=True,
                 bidirectional=True,
                 dropout=0.2,
@@ -272,7 +273,7 @@ class ScalableLRWNet(nn.Module):
             self.gru = nn.GRU(
                 in_dim,
                 recurrent_hidden_size,
-                num_layers=3,
+                num_layers=stack_recurrent,
                 batch_first=True,
                 bidirectional=False,
                 dropout=0.2,
