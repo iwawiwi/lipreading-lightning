@@ -7,10 +7,10 @@ import torchvision.transforms as transforms
 from imgcaption_loader import get_loader
 from PIL import Image
 
-sys.path.append("/home/iwawiwi/research/22/lipreading-lightning")
-
 from src.datamodules.components.flickr8k import Flickr8kDataset
 from src.models.imgcaption_module import Flickr8KLitModule
+
+sys.path.append("/home/iwawiwi/research/22/lipreading-lightning")
 
 
 def print_examples(

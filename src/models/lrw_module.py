@@ -289,7 +289,7 @@ class LRWKDLitModule(LightningModule):
             # model implementation from https://github.com/VIPL-Audio-Visual-Speech-Understanding/learn-an-effective-lip-reading-model-without-pains/
             from src.models.components.lrw_video_model import VideoModel
             model = VideoModel(args=model_hparams)
-        except:
+        except Exception:
             raise Exception("Model not found")
 
         return model  # return model
