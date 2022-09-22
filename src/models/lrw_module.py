@@ -31,7 +31,9 @@ class LRWLitModule(LightningModule):
 
         # this line allows to access init params with 'self.hparams' attribute
         # it also ensures init params will be stored in ckpt
-        self.save_hyperparameters(logger=False)  # NOTE: can't ignore saving networks otherwise it will fail to load!
+        self.save_hyperparameters(
+            logger=False
+        )  # NOTE: can't ignore saving networks otherwise it will fail to load!
 
         self.net = net
 
@@ -288,6 +290,7 @@ class LRWKDLitModule(LightningModule):
         try:
             # model implementation from https://github.com/VIPL-Audio-Visual-Speech-Understanding/learn-an-effective-lip-reading-model-without-pains/
             from src.models.components.lrw_video_model import VideoModel
+
             model = VideoModel(args=model_hparams)
         except Exception:
             raise Exception("Model not found")

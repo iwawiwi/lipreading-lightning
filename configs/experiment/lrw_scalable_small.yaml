@@ -32,9 +32,9 @@ model:
   scheduler_max_epochs: 20
   net:
     se: True
-    outplane_3d: 32
+    outplane_3d: 16
     stack_recurrent: 2
-    recurrent_hidden_size: 192
+    recurrent_hidden_size: 256
     recurrent_biderctional: True
     dropout: 0.2
 
