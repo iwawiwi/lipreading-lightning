@@ -151,3 +151,6 @@ src/vendor/*.pth
 src/vendor/example/*.png
 src/vendor/example/*.jpg
 notebooks/*.json
+
+# checkpoints
+*.ckpt
